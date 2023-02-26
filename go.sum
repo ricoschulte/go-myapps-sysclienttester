@@ -9,6 +9,8 @@ github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZb
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/ricoschulte/go-myapps v0.0.3 h1:+n+4cbPtCgRkWhnSMr2XPF1wP+EDGkzov5kVgnFG3hE=
 github.com/ricoschulte/go-myapps v0.0.3/go.mod h1:3CtBlWaF0TnS98GJdm7q95zigpGKYBAZpAfnh2tMZUM=
+github.com/ricoschulte/go-myapps v0.0.4 h1:4r+Q+WJP7WmnnO15BvkoDwwFriz0Hv1/JVWcGtN+htI=
+github.com/ricoschulte/go-myapps v0.0.4/go.mod h1:BZuwxUOi40PRsDz4emaDmZ8ysuZ5QvffxykpReZZMsE=
 github.com/sirupsen/logrus v1.9.0 h1:trlNQbNUG3OdDrDil03MCb1H2o9nJ1x4/5LYw7byDE0=
 github.com/sirupsen/logrus v1.9.0/go.mod h1:naHLuLoDiP4jHNo9R0sCBMtWGeIprob74mVsIT4qYEQ=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=

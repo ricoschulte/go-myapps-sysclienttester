@@ -3,7 +3,7 @@ module github.com/ricoschulte/go-myapps-sysclienttester
 go 1.19
 
 require (
-	github.com/ricoschulte/go-myapps v0.0.3
+	github.com/ricoschulte/go-myapps v0.0.4
 	github.com/sirupsen/logrus v1.9.0
 )
 
