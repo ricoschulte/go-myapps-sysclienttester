@@ -1,0 +1,72 @@
+{
+  "ids": [
+    {
+      "id": "f049033123450",
+      "product": "IP990",
+      "version": "IP990",
+      "fwBuild": "900001",
+      "bcBuild": "900001",
+      "major": "v0.0.0",
+      "fw": "firmware.bin",
+      "bc": "bootcode.bin",
+      "mini": false,
+      "pbxActive": false,
+      "other": false,
+      "platform": {
+        "type": "PHONE",
+        "fxs": false
+      },
+      "ethIfs": [
+        {
+          "if": "ETH0",
+          "ipv4": "172.16.0.141",
+          "ipv6": "2002:9110:9d07:0:290:33ff:fe46:af0"
+        },
+        {
+          "if": "ETH1",
+          "ipv4": "172.16.1.141",
+          "ipv6": "2002:9111:9d07:0:290:33ff:fe46:af0"
+        },
+        {
+          "if": "ETH2",
+          "ipv4": "172.16.2.141",
+          "ipv6": "2002:9112:9d07:0:290:33ff:fe46:af0"
+        }
+      ]
+    },
+    {
+      "id": "f049033123451",
+      "product": "IPVA",
+      "version": "IPVA",
+      "fwBuild": "900001",
+      "bcBuild": "900001",
+      "major": "v0.0.0",
+      "fw": "firmware.bin",
+      "bc": "bootcode.bin",
+      "mini": false,
+      "pbxActive": true,
+      "other": false,
+      "platform": {
+        "type": "VA",
+        "fxs": false
+      },
+      "ethIfs": [
+        {
+          "if": "ETH0",
+          "ipv4": "172.16.0.142",
+          "ipv6": "2002:9110:9d07:0:290:33ff:fe46:af1"
+        },
+        {
+          "if": "ETH1",
+          "ipv4": "172.16.1.142",
+          "ipv6": "2002:9111:9d07:0:290:33ff:fe46:af1"
+        },
+        {
+          "if": "ETH2",
+          "ipv4": "172.16.2.142",
+          "ipv6": "2002:9112:9d07:0:290:33ff:fe46:af1"
+        }
+      ]
+    }
+  ]
+}
