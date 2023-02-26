@@ -1,0 +1,20 @@
+---
+version: "3"
+services:
+  go-myapps-sysclienttester:
+    build:
+     context: .
+     dockerfile: Dockerfile
+    restart: always
+    volumes:
+      - ${PWD}/identities.json:/data/identities.json:ro
+      - ${PWD}/static:/data/static:ro
+      - ${PWD}/sessions:/data/sessions:rw
+    command: |
+      -secretkey yoursecretkey 
+      -sysclient wss://apps.company.com/company.com/devices/sysclients
+      -idfile /data/identities.json
+      -staticdir /data/static/
+      -sessiondir /data/sessions/
+# optional
+#      -loglevel trace     
