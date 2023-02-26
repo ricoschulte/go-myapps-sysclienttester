@@ -1,0 +1,77 @@
+{{define "header"}}<html>
+
+<head>
+    <title></title>
+</head>
+
+<body>
+    {{end}}
+    {{define "footer"}}
+</body>
+
+</html>
+{{end}}
+
+{{define "identity"}}
+<h3>Identity</h3>
+<table>
+    <tr>
+        <th>Id</th>
+        <td>{{.Id}}</td>
+    </tr>
+    <tr>
+        <th>Product</th>
+        <td>{{.Product}}</td>
+    </tr>
+    <tr>
+        <th>Version</th>
+        <td>{{.Version}}</td>
+    </tr>
+    <tr>
+        <th>FwBuild</th>
+        <td>{{.FwBuild}}</td>
+    </tr>
+    <tr>
+        <th>BcBuild</th>
+        <td>{{.BcBuild}}</td>
+    </tr>
+    <tr>
+        <th>Major</th>
+        <td>{{.Major}}</td>
+    </tr>
+    <tr>
+        <th>Fw</th>
+        <td>{{.Fw}}</td>
+    </tr>
+    <tr>
+        <th>Bc</th>
+        <td>{{.Bc}}</td>
+    </tr>
+    <tr>
+        <th>Mini</th>
+        <td>{{.Mini}}</td>
+    </tr>
+    <tr>
+        <th>PbxActive</th>
+        <td>{{.PbxActive}}</td>
+    </tr>
+    <tr>
+        <th>Other</th>
+        <td>{{.Other}}</td>
+    </tr>
+    {{if .Platform}}
+    <tr>
+        <th>Platform</th>
+        <td>{{.Platform}}</td>
+    </tr>
+    {{end}}
+    {{ if .EthIfs }}
+    {{ range .EthIfs }}
+    <tr>
+        <th>EthIf {{ .If }}</th>
+        <td>{{ .Ipv4 }} / {{ .Ipv6}}</td>
+    </tr>
+    {{end}}
+    {{end}}
+</table>
+{{end}}
