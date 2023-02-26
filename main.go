@@ -22,7 +22,7 @@ import (
 var StaticDevicesFolderFS embed.FS
 
 var secretKey = flag.String("secretkey", "", "secretkey used to encrypt local session files")
-var idFile = flag.String("idfile", "id.json", "path to a JSON file with device identities")
+var idFile = flag.String("idfile", "identities.json", "path to a JSON file with device identities")
 var logLevel = flag.String("loglevel", "info", "log level to use.")
 var sysclientUrl = flag.String("sysclient", "", "the sysclient url of the devices app to connect to (wss://apps.company.com/company.com/devices/sysclients)")
 var insecureSkipVerify = flag.Bool("skipverifytls", false, "disabled verification of TLS certificates")
