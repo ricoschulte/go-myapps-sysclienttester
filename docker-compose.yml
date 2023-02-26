@@ -3,8 +3,8 @@ version: "3"
 services:
   go-myapps-sysclienttester:
     build:
-     context: .
-     dockerfile: Dockerfile
+      context: .
+      dockerfile: Dockerfile
     restart: always
     volumes:
       - ${PWD}/identities.json:/data/identities.json:ro
