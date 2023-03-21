@@ -1,0 +1,46 @@
+name: Create and publish a Docker image
+
+on:
+  push:
+    tags:
+      - 'v*.*.*' # Matches tags that start with 'v' and contain two dots
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  build-and-push-image:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout ${{ github.ref_name }}
+        uses: actions/checkout@v3
+      
+      - name: Set up QEMU ${{ github.ref_name }}
+        uses: docker/setup-qemu-action@v2
+      
+      - name: Set up Docker Buildx ${{ github.ref_name }}
+        uses: docker/setup-buildx-action@v2
+     
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Build and push
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          platforms: linux/amd64,linux/arm64,linux/arm
+          push: true
+          tags: |
+            ghcr.io/ricoschulte/sysclienttester:latest
+            ghcr.io/ricoschulte/sysclienttester:${{ github.ref_name }}
+          build-args: |
+            VERSION=${{ github.ref_name }}

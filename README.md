@@ -1,8 +1,9 @@
 # go-myapps-sysclienttester
 
+[![Build and Publish](https://github.com/ricoschulte/sysclienttester/actions/workflows/main.yaml/badge.svg?branch=main)](https://github.com/ricoschulte/sysclienttester/actions/workflows/main.yaml)
+[![Create and publish a Docker image](https://github.com/cyberdinge/sysclienttester/actions/workflows/container.yaml/badge.svg)](https://github.com/ricoschulte/sysclienttester/actions/workflows/container.yaml)
+
 A tool for adding dummy devices to the device app of an innovaphone myApps environment via the sysclient protocol.
-
-
 
 Useful for testing during app development, debugging the configuration within the device app or similar.
 

@@ -1,0 +1,107 @@
+name: Build and Publish
+
+on:
+  push:
+    tags:
+      - 'v*.*.*' # Matches tags that start with 'v' and contain two dots
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [linux]
+        arch: [amd64,arm64,arm]
+
+    steps:
+          
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Go ${{ matrix.go-version }}
+        uses: actions/setup-go@v4
+        with:
+          go-version-file: 'go.mod'
+      
+      - name: Install deps for ${{ matrix.os }} ${{ matrix.arch }}
+        run: CGO_ENABLED=0 GOOS=${{ matrix.os }} GOARCH=${{ matrix.arch }} go mod tidy
+      
+      - name: Run tests for ${{ matrix.os }} ${{ matrix.arch }}
+        run: CGO_ENABLED=0 GOOS=${{ matrix.os }} GOARCH=${{ matrix.arch }} go test ./...
+      
+      - name: Build for ${{ matrix.os }} ${{ matrix.arch }}
+        run: CGO_ENABLED=0 GOOS=${{ matrix.os }} GOARCH=${{ matrix.arch }} go build -ldflags "-s -w -X main.version=${{ github.ref }}" -o sysclienttester-${{ matrix.os }}-${{ matrix.arch }}
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: sysclienttester-${{ matrix.os }}-${{ matrix.arch }}
+          path: ./sysclienttester-${{ matrix.os }}-${{ matrix.arch }}
+
+  create_release:
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Create release
+        uses: actions/create-release@v1
+        id: create_release
+        with:
+          draft: false
+          prerelease: false
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          body_path: CHANGELOG.md
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      # since jobs can not share any variables we have to copy the URL of the created Github release
+      # into a file and stash it as an artifact
+      - name: Copy release URL into file
+        run: |
+          mkdir release
+          printf "%s" "${{ steps.create_release.outputs.upload_url }}" > release/url.txt   
+
+      - name: Stash file containing the release URL as an artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: release-url
+          path: ./release
+
+  upload:
+    runs-on: ubuntu-latest
+    needs: create_release # release must be created before this job can start
+    strategy:
+      matrix:
+        os: [linux]
+        arch: [amd64,arm64,arm]
+    steps:
+
+      # Download the previously uploaded artifact which contains the release URL
+      - name: Retrieve stashed release URL
+        uses: actions/download-artifact@v1
+        with:
+          name: release-url
+
+      # Write content of downloaded file (a string which contains the release URL) into a step.outputs variable
+      - name: Read release URL
+        id: get_release_url
+        run: echo ::set-output name=URL::$(cat release-url/url.txt)
+      
+      - name: Download artifact ${{ matrix.os }}/${{ matrix.arch }}
+        uses: actions/download-artifact@v2
+        with:
+          name: sysclienttester-${{ matrix.os }}-${{ matrix.arch }}
+          path: ./
+      
+      - name: Upload Artifact to release ${{ matrix.os }}/${{ matrix.arch }}
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.get_release_url.outputs.URL }}
+          asset_path: ./sysclienttester-${{ matrix.os }}-${{ matrix.arch }}
+          asset_name: sysclienttester-${{ matrix.os }}-${{ matrix.arch }}
+          asset_content_type: application/octet-stream
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

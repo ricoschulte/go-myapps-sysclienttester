@@ -5,6 +5,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        VERSION: ${VERSION:-dev}
     restart: always
     volumes:
       - ${PWD}/identities.json:/data/identities.json:ro
